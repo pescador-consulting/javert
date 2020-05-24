@@ -2,13 +2,13 @@
   <v-card
     color="grey lighten-4"
     flat
-    height="200px"
+    height="50px"
     tile
   >
     <v-toolbar dense>
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Title</v-toolbar-title>
+      <v-toolbar-title>Javert</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -21,7 +21,7 @@
       </v-btn>
 
       <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
+        <v-icon @click='signOut'>mdi-dots-vertical</v-icon>
       </v-btn>
     </v-toolbar>
   </v-card>
@@ -45,7 +45,7 @@ export default {
         .signOut()
         .then(() => {
           this.$router.replace({
-            name: "home"
+            name: "login"
           });
         });
     }

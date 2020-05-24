@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 import Admin from '../views/Admin.vue'
 import Exams from '../views/Exams.vue'
 import Login from '../views/Login.vue'
@@ -17,14 +16,6 @@ Vue.use(VueRouter)
   {
     path: '/',
     redirect: '/login'
-  },
-  {
-    path: '/home',
-    name: 'Home',
-    component: Home,
-    meta: {
-      requiresAuth: true
-    }
   },
   {
     path: '/exams',
@@ -62,8 +53,9 @@ router.beforeEach((to, from, next) => {
   const currentUser = firebase.auth().currentUser;
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
-  if (requiresAuth && (!currentUser || !currentUser.emailVerified)) next('login');
-  else if (!requiresAuth && currentUser) next('home');
+  if (requiresAuth && !currentUser) next('login');
+  else if (requiresAuth && !currentUser.emailVerified) next('login');
+  else if (!requiresAuth && currentUser) next('exams');
   else next();
 });
 
