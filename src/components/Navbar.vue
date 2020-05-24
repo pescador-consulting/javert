@@ -45,7 +45,7 @@ export default {
         .signOut()
         .then(() => {
           this.$router.replace({
-            name: "login"
+            name: "Login"
           });
         });
     }

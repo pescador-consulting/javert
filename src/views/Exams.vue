@@ -1,5 +1,6 @@
 <template>
   <div id="exams">
+    <img alt="Vue logo" src="./../assets/logo.png" width="160" height="320">
     <h2>Exams</h2>
     <examtable></examtable>
   </div>
