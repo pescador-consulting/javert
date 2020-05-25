@@ -3,14 +3,24 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left">Name</th>
+          <th class="text-left">Subject</th>
+          <th class="text-left">Professor</th>
           <th class="text-left">Date</th>
+          <th class="text-left">Time</th>
+          <th class="text-left">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in exams" :key="item.name">
-          <td>{{ item.name }}</td>
+        <tr v-for="item in exams" :key="item.id">
+          <td>{{ item.subject }}</td>
+          <td>{{ item.professor }}</td>
           <td>{{ item.date }}</td>
+          <td>{{ item.time }}</td>
+          <td>
+            <v-btn class="mx-2" fab dark small color="pink">
+                    <v-icon dark>mdi-heart</v-icon>
+            </v-btn>
+          </td>
         </tr>
       </tbody>
     </template>
@@ -30,8 +40,8 @@ export default {
   methods: {
     createEmployee(name, date) {
       if (name != "") {
-        db.collection("employees")
-          .add({ date: date, name: name })
+        db.collection("exams")
+          .add({ date: date, subject: name })
           .then(() => {
             console.log("Document successfully written!");
             this.readEmployees();
@@ -43,15 +53,17 @@ export default {
       }
     },
     readEmployees() {
-      this.employeesData = [];
-      db.collection("employees")
+      this.exams = [];
+      db.collection("exams")
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             this.exams.push({
               id: doc.id,
-              name: doc.data().name,
+              subject: doc.data().subject,
+              professor: doc.data().professor,
               date: doc.data().date,
+              time: doc.data().time,
             });
             console.log(doc.id, " => ", doc.data());
           });
